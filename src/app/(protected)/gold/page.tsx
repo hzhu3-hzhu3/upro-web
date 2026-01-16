@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "@/lib/supabase";
 
 type StoreItem = {
   id: number;
@@ -11,15 +11,9 @@ type StoreItem = {
   is_active: boolean;
 };
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
-
 const GOLD_PACK_BONUS: Record<number, number> = { 16: 50, 17: 500 };
 
 export default function BuyGoldPage() {
-  const [accountId, setAccountId] = useState<number | null>(null);
   const [profiles, setProfiles] = useState<Array<{ id: number; name: string }>>(
     []
   );
@@ -52,7 +46,6 @@ export default function BuyGoldPage() {
         setLoading(false);
         return;
       }
-      setAccountId(account.id);
 
       const { data: userProfiles } = await supabase
         .from("users")

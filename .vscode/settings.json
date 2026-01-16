@@ -18,5 +18,7 @@
     "fs",
     "http",
     "net"
-  ]
+  ],
+  "kiroAgent.configureMCP": "Disabled",
+  "typescript.autoClosingTags": false
 }

@@ -1,5 +1,4 @@
 import AnimatedHero from "@/components/AnimatedHero";
-import AnimatedHowUProWorks from "@/components/AnimatedHowUProWorks";
 import { AnimatedTestimonialSection } from "@/components/AnimatedTestimonialSection";
 import TrustedByExpertsSection from "@/components/TrustedByExpertsSection";
 import CallToActionPage from "@/components/CallToActionPage";

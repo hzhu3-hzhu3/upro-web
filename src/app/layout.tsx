@@ -1,12 +1,22 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { AuthProvider } from "@/contexts/AuthContext";
-import { Navbar } from "@/components/Navbar";
 import { QueryProvider } from "@/providers/QueryProvider";
 import { HelpButton } from "@/components/HelpButton";
 import { AccessibilityAnnouncer } from "@/components/AccessibilityAnnouncer";
 import Footer from "@/components/Footer";
+import dynamic from "next/dynamic";
+
+// Dynamically import components that use Supabase to avoid loading during SSG
+const AuthProvider = dynamic(
+  () => import("@/contexts/AuthContext").then((mod) => mod.AuthProvider),
+  { ssr: false }
+);
+
+const Navbar = dynamic(
+  () => import("@/components/Navbar").then((mod) => ({ default: mod.Navbar })),
+  { ssr: false }
+);
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
