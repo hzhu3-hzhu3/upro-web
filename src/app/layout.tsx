@@ -2,21 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "@/providers/QueryProvider";
-import { HelpButton } from "@/components/HelpButton";
-import { AccessibilityAnnouncer } from "@/components/AccessibilityAnnouncer";
+import { ClientLayout } from "@/components/ClientLayout";
 import Footer from "@/components/Footer";
-import dynamic from "next/dynamic";
-
-// Dynamically import components that use Supabase to avoid loading during SSG
-const AuthProvider = dynamic(
-  () => import("@/contexts/AuthContext").then((mod) => mod.AuthProvider),
-  { ssr: false }
-);
-
-const Navbar = dynamic(
-  () => import("@/components/Navbar").then((mod) => ({ default: mod.Navbar })),
-  { ssr: false }
-);
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,13 +33,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <QueryProvider>
-          <AuthProvider>
-            <Navbar />
+          <ClientLayout>
             {children}
             <Footer />
-            <HelpButton />
-            <AccessibilityAnnouncer />
-          </AuthProvider>
+          </ClientLayout>
         </QueryProvider>
       </body>
     </html>
